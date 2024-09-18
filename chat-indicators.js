@@ -1,6 +1,6 @@
 Hooks.on("renderChatMessage", (chatMessage, html, messageData) => {
     injectMessageTag(html, messageData);
-    injectWhisperParticipants(html, messageData);
+    //injectWhisperParticipants(html, messageData);
 });
 
 function injectMessageTag(html, messageData) {
@@ -13,7 +13,7 @@ function injectMessageTag(html, messageData) {
 
     const isBlind = messageData.message.blind || false;
     const isWhisper = whisperTargets?.length > 0 || false;
-    const isSelf = isWhisper && whisperTargets.length === 1 && whisperTargets[0] === messageData.message.user;
+    const isSelf = isWhisper && whisperTargets.length === 1 && whisperTargets[0] === messageData.message.author;
     const isRoll = messageData.message.roll !== undefined;
 
     // Inject tag to the left of the timestamp
@@ -39,7 +39,7 @@ function injectWhisperParticipants(html, messageData) {
     const isWhisper = whisperTargetIds?.length > 0 || false;
     const isRoll = messageData.message.roll !== undefined;
 
-    const authorId = messageData.message.user;
+    const authorId = messageData.message.author;
     const userId = game.user.data._id;
 
     if (!isWhisper) return;
